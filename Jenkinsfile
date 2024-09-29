@@ -4,9 +4,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    docker.image('cirrusci/flutter:3.3.9').inside {
-                        sh 'flutter pub get'
-                    }
+                    sh 'docker run --rm -v $PWD:/app -w /app cirrusci/flutter:stable flutter pub get'
                 }
             }
         }
@@ -14,17 +12,14 @@ pipeline {
         stage('Build Flutter Web') {
             steps {
                 script {
-                    docker.image('cirrusci/flutter:3.3.9').inside {
-                        sh 'flutter build web --web-renderer html'
-                    }
+                    sh 'docker run --rm -v $PWD:/app -w /app cirrusci/flutter:stable flutter build web'
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'pwd'
-                sh "docker build -t ${IMAGE_NAME}:${TAG} ."
+                sh 'docker build -t ${IMAGE_NAME}:${TAG} .'
             }
         }
 
@@ -37,8 +32,8 @@ pipeline {
                         docker rm ${IMAGE_NAME}
                     fi
                     """
-                    // Run the new container
-                    sh "docker run -d -p 3000:3000 --name ${IMAGE_NAME} ${IMAGE_NAME}:${TAG}"
+                    // Jalankan container baru
+                    sh "docker run -d -p 8080:80 --name ${IMAGE_NAME} ${IMAGE_NAME}:${TAG}"
                 }
             }
         }
