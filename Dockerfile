@@ -1,6 +1,6 @@
 # Gunakan Flutter image dengan versi terbaru yang mendukung Dart 3.4.0
-# FROM cirruslabs/flutter:3.22.0 AS build
-FROM google/flutter AS build
+FROM ghcr.io/cirruslabs/flutter:3.22.0 AS build
+# FROM google/flutter AS build
 
 # Set working directory
 WORKDIR /app
