@@ -1,32 +1,29 @@
-# Menggunakan Flutter stable terbaru sebagai tahap build
-FROM cirrusci/flutter:stable AS build
+# Use the official Dart image
+FROM dart:stable AS build
 
-# Set environment variable
-ENV FLUTTER_WEB=true
+# Set the working directory
+WORKDIR /app
 
-# Buat folder kerja
-WORKDIR . .
+# Copy the pubspec and lock files
+COPY pubspec.* ./
 
-# Salin pubspec dan pubspec.lock terlebih dahulu
-COPY pubspec.yaml pubspec.lock ./
+# Get dependencies
+RUN dart pub get
 
-# Install dependencies
-RUN flutter pub get
-
-# Salin seluruh source code proyek Flutter ke dalam image
+# Copy the source code
 COPY . .
 
-# Build aplikasi Flutter untuk web
-RUN flutter build web --web-renderer html
+# Build the Flutter Web app
+RUN flutter build web --release
 
-# Tahap kedua untuk menyajikan aplikasi menggunakan server web ringan
-FROM nginx:alpine
+# Use Nginx as the web server
+FROM nginx:stable-alpine
 
-# Salin hasil build Flutter web ke direktori yang digunakan oleh Nginx
+# Copy the build output to the Nginx html directory
 COPY --from=build /app/build/web /usr/share/nginx/html
 
-# Expose port 80 untuk akses ke aplikasi Flutter
+# Expose port 80
 EXPOSE 80
 
-# Jalankan Nginx untuk menyajikan aplikasi
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
