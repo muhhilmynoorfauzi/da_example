@@ -5,7 +5,7 @@ FROM cirrusci/flutter:stable AS build
 ENV FLUTTER_WEB=true
 
 # Buat folder kerja
-WORKDIR /app
+WORKDIR . .
 
 # Salin pubspec dan pubspec.lock terlebih dahulu
 COPY pubspec.yaml pubspec.lock ./
