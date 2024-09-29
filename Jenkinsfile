@@ -5,9 +5,9 @@ pipeline {
             steps {
                 script {
                     // Periksa direktori kerja untuk memastikan struktur proyek
-                    sh 'ls -al /var/jenkins_home/workspace/flutter'
+                    sh 'ls -al $WORKSPACE'
                     // Jalankan perintah Flutter untuk install dependencies
-                    sh 'docker run --rm -v /var/jenkins_home/workspace/flutter:/app -w /app cirrusci/flutter:stable flutter pub get'
+                    sh 'docker run --rm -v $WORKSPACE:/app -w /app cirrusci/flutter:stable flutter pub get'
                 }
             }
         }
@@ -15,7 +15,7 @@ pipeline {
         stage('Build Flutter Web') {
             steps {
                 script {
-                    sh 'docker run --rm -v /var/jenkins_home/workspace/flutter:/app -w /app cirrusci/flutter:stable flutter build web --web-renderer html'
+                    sh 'docker run --rm -v $WORKSPACE:/app -w /app cirrusci/flutter:stable flutter build web --web-renderer html'
                 }
             }
         }
