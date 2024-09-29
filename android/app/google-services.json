@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750349058073",
+    "project_id": "dream-example",
+    "storage_bucket": "dream-example.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750349058073:android:4f30f0b17d6dff987daa88",
+        "android_client_info": {
+          "package_name": "com.dreamacademy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6GiEcGKw9ZwvzZHTF2gx1tWyJOhC7AM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
