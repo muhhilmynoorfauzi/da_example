@@ -4,7 +4,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    docker.image('cirrusci/flutter:latest').inside {
+                    docker.image('cirrusci/flutter:3.3.9').inside {
                         sh 'flutter pub get'
                     }
                 }
@@ -14,8 +14,8 @@ pipeline {
         stage('Build Flutter Web') {
             steps {
                 script {
-                    docker.image('cirrusci/flutter:latest').inside {
-                        sh 'flutter build web'
+                    docker.image('cirrusci/flutter:3.3.9').inside {
+                        sh 'flutter build web --web-renderer html'
                     }
                 }
             }
