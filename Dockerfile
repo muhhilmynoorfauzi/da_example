@@ -1,5 +1,5 @@
 # Menggunakan image base Flutter terbaru
-FROM cirrusci/flutter:latest AS build
+FROM cirrusci/flutter:3.3.9 AS build
 
 # Set environment variable
 ENV FLUTTER_WEB=true
