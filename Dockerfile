@@ -8,7 +8,7 @@ WORKDIR /app
 COPY pubspec.* ./
 
 # Get dependencies
-RUN dart pub get
+RUN flutter pub get
 
 # Copy the source code
 COPY . .
