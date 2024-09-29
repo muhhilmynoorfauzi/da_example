@@ -1,36 +1,36 @@
 pipeline {
     agent any
 
-    stages {
-        // stage('Clone Repository') {
-        //     steps {
-        //         git 'https://github.com/your-repo/flutter-web-app.git'
-        //     }
-        // }
+    environment {
+        IMAGE_NAME = 'dreamacademy'
+        TAG = "${env.GIT_COMMIT}" // Menggunakan commit hash sebagai tag
+    }
 
+    stages {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("flutter-web-app")
+                    sh 'pwd' // Menampilkan direktori saat ini
+                    // Membangun Docker image
+                    sh "docker build -t ${IMAGE_NAME}:${TAG} ."
                 }
             }
         }
 
-        // stage('Run Docker Compose') {
-        //     steps {
-        //         script {
-        //             dockerCompose = dockerComposeFile('docker-compose.yml')
-        //             dockerCompose.up()
-        //         }
-        //     }
-        // }
-
-        // stage('Clean Up') {
-        //     steps {
-        //         script {
-        //             dockerCompose.down()
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                script {
+                    // Memeriksa apakah container dengan nama 'dreamacademy' sudah berjalan
+                    sh """
+                    if [ \$(docker ps -q -f name=dreamacademy) ]; then
+                        docker stop dreamacademy
+                        docker rm dreamacademy
+                    fi
+                    """
+                    // Menjalankan container baru dengan port yang diekspos
+                    sh "docker run -d -p 3000:3000 --name dreamacademy ${IMAGE_NAME}:${TAG}"
+                }
+            }
+        }
     }
 }
