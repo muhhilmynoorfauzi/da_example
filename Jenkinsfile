@@ -28,7 +28,7 @@ pipeline {
                     fi
                     """
                     // Menjalankan container baru dengan port yang diekspos
-                    sh "docker run -d -p 3001:3001 --name dreamacademy ${IMAGE_NAME}:${TAG}"
+                    sh "docker run -d -p 80:80 --name dreamacademy ${IMAGE_NAME}:${TAG}"
                 }
             }
         }
