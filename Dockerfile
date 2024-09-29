@@ -1,29 +1,29 @@
-# Use the official Dart image
-FROM cirrusci/flutter:stable AS build
+# Gunakan Flutter image dengan versi terbaru yang mendukung Dart 3.4.0
+FROM cirrusci/flutter:3.22.0 AS build
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the pubspec and lock files
+# Copy pubspec files
 COPY pubspec.* ./
 
-# Get dependencies
+# Jalankan flutter pub get
 RUN flutter pub get
 
-# Copy the source code
+# Copy source code
 COPY . .
 
-# Build the Flutter Web app
+# Build Flutter web app
 RUN flutter build web --release
 
-# Use Nginx as the web server
+# Gunakan Nginx sebagai web server
 FROM nginx:stable-alpine
 
-# Copy the build output to the Nginx html directory
+# Copy hasil build ke direktori Nginx
 COPY --from=build /app/build/web /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
 
-# Start Nginx
+# Jalankan Nginx
 CMD ["nginx", "-g", "daemon off;"]
