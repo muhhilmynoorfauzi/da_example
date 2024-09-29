@@ -1,5 +1,5 @@
 # Use the official Dart image
-FROM dart:stable AS build
+FROM cirrusci/flutter:stable AS build
 
 # Set the working directory
 WORKDIR /app
