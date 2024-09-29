@@ -17,7 +17,7 @@ RUN flutter pub get
 COPY . .
 
 # Build aplikasi Flutter untuk web
-RUN flutter build web
+RUN flutter build web --web-renderer html
 
 # Tahap kedua untuk menyajikan aplikasi menggunakan server web ringan
 FROM nginx:alpine
