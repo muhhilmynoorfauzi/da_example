@@ -7,7 +7,7 @@ pipeline {
                     // Periksa direktori kerja untuk memastikan struktur proyek
                     sh 'ls -al /var/jenkins_home/workspace/flutter'
                     // Jalankan perintah Flutter untuk install dependencies
-                    sh 'docker run --rm -v /var/jenkins_home/workspace/flutter:/app -w /app cirrusci/flutter:stable flutter pub get'
+                    // sh 'docker run --rm -v /var/jenkins_home/workspace/flutter:/app -w /app cirrusci/flutter:stable flutter pub get'
                 }
             }
         }
