@@ -24,7 +24,7 @@ FROM nginx:stable-alpine
 COPY --from=build /app/build/web /usr/share/nginx/html
 
 # Expose port 80
-EXPOSE 80
+EXPOSE 3001
 
 # Jalankan Nginx
 CMD ["nginx", "-g", "daemon off;"]
